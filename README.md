@@ -16,6 +16,7 @@ This is a simple Electron-based chat application that uses the OpenAI API to cre
 Before you can run the application, make sure you have the following installed:
 - Node.js
 - npm (usually comes bundled with Node.js)
+- Api Key found here: [api-key](https://platform.openai.com/account/api-keys)
 
 ## Installation
 1. Clone this repository to your local machine:
