@@ -111,13 +111,70 @@
 #new-chat-session-button:hover {
   background-color: #45a049;
 }
+
+#side-container {
+  background-color: #222;
+  border-radius: 10px;
+  padding: 20px;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  margin-right: 20px;
+}
+
+#new-chat-session-button {
+  background-color: #4caf50;
+  border: none;
+  border-radius: 5px;
+  color: #eee;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding: 10px;
+  outline: none;
+}
+
+#new-chat-session-button:hover {
+  background-color: #45a049;
+}
+
+#chat-sessions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+  overflow-y: auto;
+  max-height: 80%;
+}
+
+#chat-sessions button {
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  color: #eee;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px;
+  outline: none;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#chat-sessions button:hover {
+  background-color: #444;
+}
     </style>
   </head>
   <body>
-    <div>
+    <div id="side-container">
+      <div id="chat-session-heading">Chat Sessions</div>
       <button id="new-chat-session-button">New Chat Session</button>
-    <div id="chat-sessions">
-      <!-- Chat session buttons will be displayed here -->
+      <div id="chat-sessions">
+        <!-- Chat session buttons will be displayed here -->
+      </div>
     </div>
   </div>
     <div id="app-container">
