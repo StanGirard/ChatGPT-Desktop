@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>OpenAI Chatbot</title>
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #111;
+        color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+      #app-container {
+        background-color: #222;
+        border-radius: 10px;
+        padding: 20px;
+        width: 80%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        height: 80%;
+      }
+
+      #header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #model-select {
+        width: 50%;
+      }
+
+      #api-key-input,
+      #user-input {
+        background-color: #333;
+        border: none;
+        border-radius: 5px;
+        color: #eee;
+        font-size: 16px;
+        padding: 5px;
+        outline: none;
+      }
+
+      #api-key-submit,
+      #send-button {
+        background-color: #4caf50;
+        border: none;
+        border-radius: 5px;
+        color: #eee;
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 10px;
+        padding: 5px 10px;
+        outline: none;
+      }
+
+      #api-key-submit:hover,
+      #send-button:hover {
+        background-color: #45a049;
+      }
+
+      #chat-container {
+        background-color: #333;
+        border-radius: 5px;
+        flex-grow: 1;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        overflow-y: auto;
+      }
+
+      #user-input {
+        width: 100%;
+        box-sizing: border-box;
+      }
+      #chat-sessions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.message-img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+      #footer {
+        display: flex;
+        justify-content: space-between;
+      }
+      #new-chat-session-button {
+  background-color: #4caf50;
+  border: none;
+  border-radius: 5px;
+  color: #eee;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+  padding: 5px 10px;
+  outline: none;
+}
+
+#new-chat-session-button:hover {
+  background-color: #45a049;
+}
+    </style>
+  </head>
+  <body>
+    <div>
+      <button id="new-chat-session-button">New Chat Session</button>
+    <div id="chat-sessions">
+      <!-- Chat session buttons will be displayed here -->
+    </div>
+  </div>
+    <div id="app-container">
+      <div id="header">
+        <div>
+          <label for="model-select">Select Model:</label>
+          <select id="model-select">
+            <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+            <option value="gpt-4">GPT 4</option>
+            <option value="gpt-4-32k">GPT 4 32k context</option>
+          </select>
+        </div>
+        <div>
+          <label for="api-key-input">API Key:</label>
+          <input id="api-key-input" type="password" placeholder="Enter your OpenAI API key..." />
+          <button id="api-key-submit">Set API Key</button>
+        </div>
+      </div>
+      
+      <div id="chat-container">
+        <!-- Chat messages will be displayed here -->
+      </div>
+      <div id="footer">
+        <input id="user-input" type="text" placeholder="Type your message here..." />
+        <button id="send-button">Send</button>
+      </div>
+    </div>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

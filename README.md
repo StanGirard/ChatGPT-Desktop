@@ -1,41 +1,44 @@
-# electron-quick-start
+# OpenAI Chat
 
-**Clone and run for a quick way to see Electron in action.**
+This is a simple Electron-based chat application that uses the OpenAI API to create interactive chat sessions with an AI language model.
 
-This is a minimal Electron application based on the [Quick Start Guide](https://electronjs.org/docs/latest/tutorial/quick-start) within the Electron documentation.
+## Demo
 
-A basic Electron application needs just these files:
+<p align="center">
+<img src="screenshot.png" alt="demo" width="50%">
+<p align="center">
 
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
-- `preload.js` - A content script that runs before the renderer process loads.
+## Features
+- Create multiple chat sessions with unique names
+- Interact with the AI model in a user-friendly interface
 
-You can learn more about each of these components in depth within the [Tutorial](https://electronjs.org/docs/latest/tutorial/tutorial-prerequisites).
+## Prerequisites
+Before you can run the application, make sure you have the following installed:
+- Node.js
+- npm (usually comes bundled with Node.js)
 
-## To Use
-
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
+## Installation
+1. Clone this repository to your local machine:
 ```bash
-# Clone this repository
-git clone https://github.com/electron/electron-quick-start
-# Go into the repository
-cd electron-quick-start
-# Install dependencies
+git clone https://github.com/stangirard/electron-gpt.git
+```
+2. Navigate to the project directory:
+```bash  
+cd openai-chat
+```
+3. Install the required dependencies:
+```bash
 npm install
-# Run the app
+```
+4. Start the application:
+```bash
 npm start
 ```
 
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
 
-## Resources for Learning Electron
-
-- [electronjs.org/docs](https://electronjs.org/docs) - all of Electron's documentation
-- [Electron Fiddle](https://electronjs.org/fiddle) - Electron Fiddle, an app to test small Electron experiments
-
-## License
-
-[CC0 1.0 (Public Domain)](LICENSE.md)
-# electron-gpt
+## Usage
+1. Launch the application.
+2. Enter your OpenAI API key and click "Set API Key".
+3. Click "New Chat Session" to create a new chat session.
+4. Type a message in the input field and press "Enter" or click "Send" to send the message.
+5. The AI model will respond to your message and display it in the chat window.
