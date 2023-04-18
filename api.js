@@ -2,7 +2,7 @@ const { Configuration, OpenAIApi } = require('openai');
 
 let openai = null;
 
-
+// Set the API key for OpenAI
 async function setAPIKey(apiKey) {
     const configuration = new Configuration({
         apiKey,
@@ -11,6 +11,7 @@ async function setAPIKey(apiKey) {
     openai = new OpenAIApi(configuration);
 }
 
+// Create a chat completion using OpenAI API
 async function createChatCompletion(model, messages, onResponse) {
     if (!openai) {
         alert('Please set your API key first.');
@@ -62,6 +63,7 @@ async function createChatCompletion(model, messages, onResponse) {
     }
 }
 
+// Initialize the API
 function initAPI() {
     const apiKey = localStorage.getItem('apiKey');
     if (apiKey) {

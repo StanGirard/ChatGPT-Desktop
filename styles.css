@@ -172,7 +172,9 @@ body {
     flex-direction: row;
 }
 
-#side-container, #app-container, #right-container-prompt {
+#side-container,
+#app-container,
+#right-container-prompt {
     margin: 20px;
 }
 
@@ -194,3 +196,44 @@ code {
     margin-left: 5px;
     cursor: pointer;
 }
+
+
+
+.prompt-list-item {
+    list-style: none;
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.prompt-name {
+    font-weight: bold;
+    color: #eee;
+}
+
+.prompt-description {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #444;
+    color: #fff;
+    padding: 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+    margin-left: 8px;
+    z-index: 100;
+    font-size: 14px;
+    min-width: 150px; /* Add this line */
+    max-width: 300px; /* Add this line */
+}
+
+.prompt-list-item:hover .prompt-description {
+    display: block;
+}
+
