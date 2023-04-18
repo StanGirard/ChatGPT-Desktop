@@ -3,6 +3,10 @@ const { createChatCompletion } = require('./api');
 let chats = {};
 let currentChatId = null;
 
+const MarkdownIt = require('markdown-it');
+const markdownItSanitizer = require('markdown-it-sanitizer');
+const md = new MarkdownIt().use(markdownItSanitizer);
+
 function displayMessage(role, messageContent, chatId) {
     const chatContainer = document.getElementById('chat-container');
     const messageElement = document.createElement('div');
@@ -10,8 +14,13 @@ function displayMessage(role, messageContent, chatId) {
     imgElement.src = role === 'user' ? 'user.png' : 'assistant.png';
     imgElement.classList.add('message-img');
     messageElement.appendChild(imgElement);
-    const messageText = document.createElement('span');
-    messageText.textContent = `${messageContent}`;
+    
+    // Convert markdown to HTML
+    const htmlContent = md.render(messageContent);
+
+    // Create a <div> element to hold the HTML content
+    const messageText = document.createElement('div');
+    messageText.innerHTML = htmlContent;
     messageElement.appendChild(messageText);
 
     chatContainer.appendChild(messageElement);
@@ -27,11 +36,14 @@ function updateLastMessage(chatId, updatedMessage) {
     const lastMessageElement = chatContainer.lastElementChild;
 
     if (lastMessageElement) {
-        // Get the <span> element containing the message text
-        const messageTextElement = lastMessageElement.querySelector('span');
+        // Get the <div> element containing the message text
+        const messageTextElement = lastMessageElement.querySelector('div');
         if (messageTextElement) {
-            // Update the text content of the message text element with the updated message content
-            messageTextElement.textContent = updatedMessage.content;
+            // Render the updated message content using the Markdown parser
+            const renderedContent = md.render(updatedMessage.content);
+
+            // Update the innerHTML of the message text element with the rendered content
+            messageTextElement.innerHTML = renderedContent;
         }
     }
 }

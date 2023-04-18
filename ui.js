@@ -5,6 +5,7 @@ const {
 } = require('./chat');
 const { setAPIKey } = require('./api');
 
+
 function initUI() {
     const modelSelect = document.getElementById('model-select');
     const apiKeyInput = document.getElementById('api-key-input');

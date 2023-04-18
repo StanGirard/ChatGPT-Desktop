@@ -162,3 +162,15 @@ body {
 #side-container, #app-container, #right-container-prompt {
     margin: 20px;
 }
+
+code {
+    background-color: #333;
+    border: 1px solid #444;
+    font-size: 14px;
+    font-family: Consolas, Monaco, Menlo, 'Ubuntu Mono', 'Liberation Mono', monospace;
+    padding: 5px;
+    margin: 10px 0;
+    display: block;
+    white-space: pre-wrap;
+    color: #eee;
+}
