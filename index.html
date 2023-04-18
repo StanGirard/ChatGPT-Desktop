@@ -43,12 +43,41 @@
     </div>
   </div>
   <div id="right-container-prompt">
-    <div id="prompt-heading">Prompt</div>
-    <button id="new-prompt-button" class="button-green">New Prompts</button>
-    <div id="prompts">
-      <!-- Prompts buttons will be displayed here -->
+    <div id="prompt-heading">Prompts</div>
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'premade-prompts')" id="defaultOpen">Premade</button>
+      <button class="tablinks" onclick="openTab(event, 'custom-prompts')">Custom</button>
+    </div>
+    <div id="premade-prompts" class="tabcontent">
       <div id="prompt-list" class="sidebar"></div>
     </div>
+    <div id="custom-prompts" class="tabcontent">
+      <button id="new-custom-prompt-button" class="button-green">New Custom Prompt</button>
+      <div id="custom-prompt-list" class="sidebar"></div>
+      <div id="custom-prompt-form-container" style="display: none;">
+        <input id="custom-prompt-name" type="text" placeholder="Enter prompt name..." />
+        <textarea id="custom-prompt-description" rows="2" placeholder="Enter prompt description..."></textarea>
+        <textarea id="custom-prompt-text" rows="2" placeholder="Enter prompt text..."></textarea>
+        <button id="custom-prompt-submit" class="button-green">Add Custom Prompt</button>
+        <button id="custom-prompt-cancel" class="button-red">Cancel</button>
+      </div>
+    </div>
+    <script>
+      function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+      document.getElementById("defaultOpen").click();
+    </script>
   </div>
   <script src="./renderer.js"></script>
 </body>

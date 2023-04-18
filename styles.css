@@ -237,3 +237,43 @@ code {
     display: block;
 }
 
+.tab {
+    overflow: hidden;
+    border-bottom: 1px solid #333;
+    margin-bottom: 10px;
+  }
+  
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #eee;
+  }
+  
+  .tab button:hover {
+    background-color: #444;
+  }
+  
+  .tab button.active {
+    background-color: #444;
+  }
+  
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #333;
+    border-top: none;
+  }
+
+  #prompt-tabs {
+    display: flex;
+}
+
+.button-tab {
+    margin-right: 8px;
+}
