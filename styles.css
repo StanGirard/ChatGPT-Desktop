@@ -75,11 +75,24 @@ body {
     box-sizing: border-box;
 }
 
+.message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.message-content-wrapper {
+    display: flex;
+    align-items: flex-start;
+}
+
 .message-img {
     width: 20px;
     height: 20px;
     border-radius: 50%;
     margin-right: 10px;
+    margin-top: 3px;
 }
 
 #footer {
@@ -173,4 +186,11 @@ code {
     display: block;
     white-space: pre-wrap;
     color: #eee;
+}
+
+.delete-icon {
+    font-size: 12px;
+    color: #aaa;
+    margin-left: 5px;
+    cursor: pointer;
 }

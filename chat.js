@@ -10,6 +10,8 @@ const md = new MarkdownIt().use(markdownItSanitizer);
 function displayMessage(role, messageContent, chatId) {
     const chatContainer = document.getElementById('chat-container');
     const messageElement = document.createElement('div');
+    messageElement.classList.add('message');
+    
     const imgElement = document.createElement('img');
     imgElement.src = role === 'user' ? 'user.png' : 'assistant.png';
     imgElement.classList.add('message-img');
@@ -21,7 +23,12 @@ function displayMessage(role, messageContent, chatId) {
     // Create a <div> element to hold the HTML content
     const messageText = document.createElement('div');
     messageText.innerHTML = htmlContent;
-    messageElement.appendChild(messageText);
+    const messageContentWrapper = document.createElement('div');
+    messageContentWrapper.classList.add('message-content-wrapper');
+    messageContentWrapper.appendChild(imgElement);
+    messageContentWrapper.appendChild(messageText);
+
+    messageElement.appendChild(messageContentWrapper);
 
     chatContainer.appendChild(messageElement);
     chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -58,7 +65,44 @@ function updateChatSessions(chatId) {
         chatButton.addEventListener('click', () => {
             switchChatSession(chatId);
         });
+
+        // Add delete icon to chat session button
+        const deleteIcon = document.createElement('span');
+        deleteIcon.classList.add('delete-icon');
+        deleteIcon.innerHTML = '&#x1F5D1;'; // Trash can emoji
+        deleteIcon.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent switching to the chat session when the icon is clicked
+            deleteChatSession(chatId);
+        });
+
+        chatButton.appendChild(deleteIcon);
         chatSessions.appendChild(chatButton);
+    }
+}
+
+function deleteChatSession(chatId) {
+    // Show a confirmation popup
+    const confirmDeletion = confirm('Are you sure you want to delete this chat session?');
+
+    if (!confirmDeletion) {
+        return;
+    }
+
+    const chatSessions = document.getElementById('chat-sessions');
+    const chatButton = document.getElementById(`chat-button-${chatId}`);
+
+    if (chatButton) {
+        // Remove the chat button from the chat sessions list
+        chatSessions.removeChild(chatButton);
+    }
+
+    // Remove the chat session from the chats object
+    delete chats[chatId];
+
+    // If the deleted chat session is the current one, switch to the first available chat session
+    if (chatId === currentChatId) {
+        const firstChatId = Object.keys(chats)[0];
+        switchChatSession(firstChatId);
     }
 }
 
@@ -160,7 +204,6 @@ function loadChatsFromLocalStorage() {
 
 
 
-
 function initChat() {
     loadChatsFromLocalStorage();
 
@@ -181,5 +224,6 @@ module.exports = {
     updateChatSessions,
     switchChatSession,
     createNewChatSession,
-    updateLastMessage
+    updateLastMessage,
+    deleteChatSession
 };
