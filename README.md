@@ -5,12 +5,19 @@ This is a simple Electron-based chat application that uses the OpenAI API to cre
 ## Demo
 
 <p align="center">
-<img src="screenshot.png" alt="demo" width="50%">
+<img src="2023-04-18-23-42-33.png" alt="demo" width="70%">
 <p align="center">
 
+
+
 ## Features
-- Create multiple chat sessions with unique names
-- Interact with the AI model in a user-friendly interface
+- Create and manage multiple chat sessions with unique names.
+- Customize the language model and other settings for each chat session.
+- Easily send messages and receive responses from the AI model.
+- Simple and user-friendly interface for easy use.
+- Create custom prompts for the AI model to generate responses from.
+- Use Premade Prompts to generate responses from a list of pre-made prompts.
+- Save chat sessions between sessions.
 
 ## Prerequisites
 Before you can run the application, make sure you have the following installed:

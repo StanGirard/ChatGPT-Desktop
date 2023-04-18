@@ -60,6 +60,13 @@ body {
     background-color: #45a049;
 }
 
+#chat-messages {
+    display: block;
+    width: 100%;
+    overflow-y: auto;
+    height: 500px;
+  }
+
 #chat-container {
     background-color: #333;
     border-radius: 5px;
@@ -83,8 +90,7 @@ body {
 }
 
 .message-content-wrapper {
-    display: flex;
-    align-items: flex-start;
+    display: block;
 }
 
 .message-img {

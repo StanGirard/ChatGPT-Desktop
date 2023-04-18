@@ -15,7 +15,6 @@ function displayMessage(role, messageContent, chatId) {
     const imgElement = document.createElement('img');
     imgElement.src = role === 'user' ? 'user.png' : 'assistant.png';
     imgElement.classList.add('message-img');
-    messageElement.appendChild(imgElement);
     
     // Convert markdown to HTML
     const htmlContent = md.render(messageContent);
@@ -53,6 +52,7 @@ function updateLastMessage(chatId, updatedMessage) {
             messageTextElement.innerHTML = renderedContent;
         }
     }
+    chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 function updateChatSessions(chatId) {
     const chatSessions = document.getElementById('chat-sessions');
