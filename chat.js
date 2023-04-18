@@ -18,6 +18,23 @@ function displayMessage(role, messageContent, chatId) {
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
+
+function updateLastMessage(chatId, updatedMessage) {
+    const chatContainer = document.getElementById('chat-container');
+    if (!chatContainer) return;
+
+    // Get the last message element in the chat container
+    const lastMessageElement = chatContainer.lastElementChild;
+
+    if (lastMessageElement) {
+        // Get the <span> element containing the message text
+        const messageTextElement = lastMessageElement.querySelector('span');
+        if (messageTextElement) {
+            // Update the text content of the message text element with the updated message content
+            messageTextElement.textContent = updatedMessage.content;
+        }
+    }
+}
 function updateChatSessions(chatId) {
     const chatSessions = document.getElementById('chat-sessions');
     let chatButton = document.getElementById(`chat-button-${chatId}`);
@@ -81,26 +98,34 @@ function addUserMessageToChat(message) {
 async function addAssistantMessageToChat(message) {
     const chatSession = chats[currentChatId];
     if (!chatSession) return;
-  
+
     const model = chatSession.model;
-    const stream = await createChatCompletion(model, chatSession.messages);
-  
-    if (!stream) return;
-  
-    stream.on('data', (chunk) => {
-      const assistantMessage = chunk.toString();
-      if (assistantMessage.trim() === '[DONE]') {
-        stream.destroy();
-      } else {
-        chatSession.messages.push({ role: 'assistant', content: assistantMessage });
-        displayMessage('assistant', assistantMessage, currentChatId);
-      }
+    const messages = chatSession.messages;
+
+    let consolidatedMessage = null
+
+    await createChatCompletion(model, messages, (assistantMessage) => {
+        if (assistantMessage) {
+            let latestMessage = chatSession.messages[chatSession.messages.length - 1];
+            console.log(assistantMessage)
+            if (latestMessage.role === 'assistant' || latestMessage.role === 'system') {
+                // If the latest message is from the assistant or system, update it
+                latestMessage.content += assistantMessage;
+                consolidatedMessage = latestMessage.content;
+                updateLastMessage(currentChatId, latestMessage);
+            } else {
+                // If the latest message is not from the assistant or system, create a new message
+                const newAssistantMessage = { role: 'assistant', content: assistantMessage };
+                chatSession.messages.push(newAssistantMessage);
+                displayMessage('assistant', assistantMessage, currentChatId);
+                // Update the reference to the latest message
+                latestMessage = newAssistantMessage;
+                consolidatedMessage = newAssistantMessage;
+            }
+        }
     });
-  
-    stream.on('error', (err) => {
-      console.error('Error while streaming chat completion:', err);
-    });
-  }
+    return consolidatedMessage;
+}
 
 function initChat() {
     createNewChatSession();
@@ -114,4 +139,5 @@ module.exports = {
     updateChatSessions,
     switchChatSession,
     createNewChatSession,
+    updateLastMessage
 };

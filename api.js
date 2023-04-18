@@ -1,5 +1,4 @@
 const { Configuration, OpenAIApi } = require('openai');
-const { IncomingMessage } = require('http');
 
 let openai = null;
 
@@ -32,6 +31,7 @@ async function createChatCompletion(model, messages, onResponse) {
         const response = await fetch(url, requestOptions);
         const reader = response.body.getReader();
         const decoder = new TextDecoder('utf-8');
+        let buffer = '';
 
         while (true) {
             const { done, value } = await reader.read();
@@ -39,16 +39,19 @@ async function createChatCompletion(model, messages, onResponse) {
                 break;
             }
 
-            const payloads = decoder.decode(value).split('\n\n');
+            buffer += decoder.decode(value, { stream: true });
+            const payloads = buffer.split('\n\n');
+            buffer = payloads.pop();
+
             for (const payload of payloads) {
                 if (payload.includes('[DONE]')) return;
                 if (payload.startsWith('data:')) {
                     const data = payload.replace(/(\n)?^data:\s*/g, '');
                     try {
                         const delta = JSON.parse(data.trim());
-                        onResponse(delta.choices[0].message?.content);
+                        onResponse(delta.choices && delta.choices.length > 0 && delta.choices[0].delta ? delta.choices[0].delta.content : null);
                     } catch (error) {
-                        console.log(`Error with JSON.parse and ${payload}`);
+                        console.log(`Error with JSON.parse and ${payload}`, error.message, error);
                     }
                 }
             }
@@ -57,8 +60,6 @@ async function createChatCompletion(model, messages, onResponse) {
         console.error('Error calling the OpenAI API:', error);
     }
 }
-
-
 
 module.exports = {
     setAPIKey,
