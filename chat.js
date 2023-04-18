@@ -81,17 +81,26 @@ function addUserMessageToChat(message) {
 async function addAssistantMessageToChat(message) {
     const chatSession = chats[currentChatId];
     if (!chatSession) return;
-
+  
     const model = chatSession.model;
-    const assistantMessage = await createChatCompletion(model, chatSession.messages);
-
-    if (!assistantMessage) return null;
-
-    chatSession.messages.push({ role: 'assistant', content: assistantMessage });
-    displayMessage('assistant', assistantMessage, currentChatId);
-
-    return assistantMessage;
-}
+    const stream = await createChatCompletion(model, chatSession.messages);
+  
+    if (!stream) return;
+  
+    stream.on('data', (chunk) => {
+      const assistantMessage = chunk.toString();
+      if (assistantMessage.trim() === '[DONE]') {
+        stream.destroy();
+      } else {
+        chatSession.messages.push({ role: 'assistant', content: assistantMessage });
+        displayMessage('assistant', assistantMessage, currentChatId);
+      }
+    });
+  
+    stream.on('error', (err) => {
+      console.error('Error while streaming chat completion:', err);
+    });
+  }
 
 function initChat() {
     createNewChatSession();
