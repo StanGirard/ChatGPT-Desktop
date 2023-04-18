@@ -93,6 +93,8 @@ function createNewChatSession() {
         messages: [{ "role": "system", "content": "You talk like a 3 years old" }],
     };
 
+    saveChatsToLocalStorage(); // Add this line
+
     currentChatId = chatId;
 
     updateChatSessions(chatId);
@@ -104,6 +106,7 @@ function addUserMessageToChat(message) {
     if (!chatSession) return;
 
     chatSession.messages.push({ role: 'user', content: message });
+    saveChatsToLocalStorage(); // Add this line
     displayMessage('user', message, currentChatId);
 }
 
@@ -118,7 +121,9 @@ async function addAssistantMessageToChat(message) {
 
     await createChatCompletion(model, messages, (assistantMessage) => {
         if (assistantMessage) {
+            saveChatsToLocalStorage()
             let latestMessage = chatSession.messages[chatSession.messages.length - 1];
+
             console.log(assistantMessage)
             if (latestMessage.role === 'assistant' || latestMessage.role === 'system') {
                 // If the latest message is from the assistant or system, update it
@@ -139,8 +144,29 @@ async function addAssistantMessageToChat(message) {
     return consolidatedMessage;
 }
 
+function saveChatsToLocalStorage() {
+    localStorage.setItem('chats', JSON.stringify(chats));
+}
+
+function loadChatsFromLocalStorage() {
+    const savedChats = localStorage.getItem('chats');
+    if (savedChats) {
+        chats = JSON.parse(savedChats);
+        for (const chatId in chats) {
+            updateChatSessions(chatId);
+        }
+    }
+}
+
 function initChat() {
-    createNewChatSession();
+    loadChatsFromLocalStorage();
+    if (Object.keys(chats).length === 0) {
+        createNewChatSession();
+    } else {
+        // Switch to the last chat session in the list
+        const lastChatId = Object.keys(chats)[Object.keys(chats).length - 1];
+        switchChatSession(lastChatId);
+    }
 }
 
 module.exports = {
