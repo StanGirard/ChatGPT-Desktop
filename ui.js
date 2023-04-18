@@ -50,7 +50,13 @@ function initUI() {
 
     userInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-            sendButton.click();
+            if (!event.shiftKey) {
+                event.preventDefault(); // Prevent newline from being added to the input
+                sendButton.click();
+            } else {
+                userInput.value += '\n';
+                event.preventDefault();
+            }
         }
     });
 }
