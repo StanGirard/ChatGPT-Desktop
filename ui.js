@@ -5,6 +5,9 @@ const {
 } = require('./chat');
 const { setAPIKey } = require('./api');
 
+function saveAPIKeyToLocalStorage(apiKey) {
+    localStorage.setItem('apiKey', apiKey);
+}
 
 function initUI() {
     const modelSelect = document.getElementById('model-select');
@@ -20,6 +23,7 @@ function initUI() {
         if (!apiKey) return;
 
         setAPIKey(apiKey);
+        saveAPIKeyToLocalStorage(apiKey);
 
         // Show a success message or any other indication that the key is set
         alert('API key set successfully');

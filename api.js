@@ -2,6 +2,7 @@ const { Configuration, OpenAIApi } = require('openai');
 
 let openai = null;
 
+
 async function setAPIKey(apiKey) {
     const configuration = new Configuration({
         apiKey,
@@ -61,7 +62,17 @@ async function createChatCompletion(model, messages, onResponse) {
     }
 }
 
+function initAPI() {
+    const apiKey = localStorage.getItem('apiKey');
+    if (apiKey) {
+        setAPIKey(apiKey);
+        const apiKeyInput = document.getElementById('api-key-input');
+        apiKeyInput.value = apiKey;
+    }
+}
+
 module.exports = {
     setAPIKey,
     createChatCompletion,
+    initAPI,
 };

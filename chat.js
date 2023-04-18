@@ -158,8 +158,12 @@ function loadChatsFromLocalStorage() {
     }
 }
 
+
+
+
 function initChat() {
     loadChatsFromLocalStorage();
+
     if (Object.keys(chats).length === 0) {
         createNewChatSession();
     } else {
