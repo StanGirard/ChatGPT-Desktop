@@ -218,9 +218,8 @@ code {
 .prompt-description {
     display: none;
     position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 0%;
+    top: 100%;
     background-color: #444;
     color: #fff;
     padding: 8px;

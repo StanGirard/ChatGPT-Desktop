@@ -122,15 +122,17 @@ function showCustomPromptForm() {
     const listItem = document.createElement('li');
     listItem.classList.add('prompt-list-item');
 
+    const promptDescription = document.createElement('div');
+    promptDescription.classList.add('prompt-description');
+    promptDescription.textContent = prompt.description;
+    listItem.appendChild(promptDescription);
+
     const promptName = document.createElement('div');
     promptName.classList.add('prompt-name');
     promptName.textContent = prompt.name;
     listItem.appendChild(promptName);
 
-    const promptDescription = document.createElement('div');
-    promptDescription.classList.add('prompt-description');
-    promptDescription.textContent = prompt.description;
-    listItem.appendChild(promptDescription);
+    
 
     listItem.addEventListener('click', () => {
         insertPromptIntoTextarea(prompt.prompt);
