@@ -7,17 +7,15 @@
   <style>
     @import url('./styles.css');
   </style>
-
 </head>
 
 <body>
   <div id="side-container">
     <div id="chat-session-heading">Chat Sessions</div>
-    <button id="new-chat-session-button">New Chat Session</button>
+    <button id="new-chat-session-button" class="button-green">New Chat Session</button>
     <div id="chat-sessions">
       <!-- Chat session buttons will be displayed here -->
     </div>
-  </div>
   </div>
   <div id="app-container">
     <div id="header">
@@ -32,7 +30,7 @@
       <div>
         <label for="api-key-input">API Key:</label>
         <input id="api-key-input" type="password" placeholder="Enter your OpenAI API key..." />
-        <button id="api-key-submit">Set API Key</button>
+        <button id="api-key-submit" class="button-green">Set API Key</button>
       </div>
     </div>
 
@@ -41,7 +39,14 @@
     </div>
     <div id="footer">
       <input id="user-input" type="text" placeholder="Type your message here..." />
-      <button id="send-button">Send</button>
+      <button id="send-button" class="button-green">Send</button>
+    </div>
+  </div>
+  <div id="right-container-prompt">
+    <div id="prompt-heading">Prompt</div>
+    <button id="new-prompt-button" class="button-green">New Prompts</button>
+    <div id="prompts">
+      <!-- Prompts buttons will be displayed here -->
     </div>
   </div>
   <script src="./renderer.js"></script>

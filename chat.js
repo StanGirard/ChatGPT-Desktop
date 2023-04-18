@@ -104,4 +104,5 @@ module.exports = {
     addAssistantMessageToChat,
     updateChatSessions,
     switchChatSession,
+    createNewChatSession,
 };
