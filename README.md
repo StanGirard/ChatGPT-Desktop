@@ -5,7 +5,8 @@ This is a simple Electron-based chat application that uses the OpenAI API to cre
 ## Demo
 
 <p align="center">
-<img src="2023-04-18-23-42-33.png" alt="demo" width="70%">
+<img src="demo.gif" alt="demo" width="70%">
+
 <p align="center">
 
 

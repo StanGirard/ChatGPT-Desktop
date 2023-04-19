@@ -1,23 +1,30 @@
 {
-  "name": "electron-quick-start",
+  "name": "chatgpt-desktop",
   "version": "1.0.0",
   "description": "A minimal Electron application",
   "main": "main.js",
-  "scripts": {
-    "start": "electron ."
+  "build": {
+    "appId": "com.electron.chatgpt-desktop",
+    "mac": {
+      "category": "your.app.category.type"
+    }
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "repository": "https://github.com/stangirard/chatgpt-desktop",
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "chatGPT"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "StanGirard",
+  "license": "Apache License 2.0",
   "devDependencies": {
-    "electron": "^24.1.1"
+    "electron": "^24.1.1",
+    "electron-builder": "^23.6.0"
   },
   "dependencies": {
     "markdown-it": "^13.0.1",
