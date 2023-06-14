@@ -29,6 +29,6 @@
   "dependencies": {
     "markdown-it": "^13.0.1",
     "markdown-it-sanitizer": "^0.4.3",
-    "openai": "^3.2.1"
+    "openai": "^3.3.0"
   }
 }
