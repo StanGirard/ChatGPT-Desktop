@@ -1,32 +1,47 @@
 const { createChatCompletion } = require('./api');
-
-let chats = {};
-let currentChatId = null;
-
 const MarkdownIt = require('markdown-it');
 const markdownItSanitizer = require('markdown-it-sanitizer');
 const md = new MarkdownIt().use(markdownItSanitizer);
 
+let chats = {};
+let currentChatId = null;
+
+function createElement(tag, attributes = {}, styles = {}) {
+    const element = document.createElement(tag);
+
+    for (const [key, value] of Object.entries(attributes)) {
+        element[key] = value;
+    }
+
+    for (const [key, value] of Object.entries(styles)) {
+        element.style[key] = value;
+    }
+
+    return element;
+}
+
 function displayMessage(role, messageContent, chatId) {
     const chatContainer = document.getElementById('chat-container');
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('message');
-    
-    const imgElement = document.createElement('img');
-    imgElement.src = role === 'user' ? 'user.png' : 'assistant.png';
-    imgElement.classList.add('message-img');
-    
-    // Convert markdown to HTML
-    const htmlContent = md.render(messageContent);
+    const messageElement = createElement('div', {
+        className: 'message'
+    });
 
-    // Create a <div> element to hold the HTML content
-    const messageText = document.createElement('div');
-    messageText.innerHTML = htmlContent;
-    const messageContentWrapper = document.createElement('div');
-    messageContentWrapper.classList.add('message-content-wrapper');
+    const imgElement = createElement('img', {
+        src: role === 'user' ? 'user.png' : 'assistant.png',
+        className: 'message-img'
+    });
+
+    const htmlContent = md.render(messageContent);
+    const messageText = createElement('div', {
+        innerHTML: htmlContent
+    });
+    
+    const messageContentWrapper = createElement('div', {
+        className: 'message-content-wrapper'
+    });
+    
     messageContentWrapper.appendChild(imgElement);
     messageContentWrapper.appendChild(messageText);
-
     messageElement.appendChild(messageContentWrapper);
 
     chatContainer.appendChild(messageElement);
@@ -203,15 +218,13 @@ function loadChatsFromLocalStorage() {
 }
 
 
-
 function initChat() {
     loadChatsFromLocalStorage();
 
     if (Object.keys(chats).length === 0) {
         createNewChatSession();
     } else {
-        // Switch to the last chat session in the list
-        const lastChatId = Object.keys(chats)[Object.keys(chats).length - 1];
+        const lastChatId = Object.keys(chats).pop();
         switchChatSession(lastChatId);
     }
 }
